@@ -29,5 +29,15 @@ class BinaryTree
      */
     public static function invert($root)
     {
+        if($root == null){ return null; }
+
+        $tmp = $root->left;
+        $root->left = $root->right;
+        $root->right = $tmp;
+
+        self::invert($root->left);
+        self::invert($root->right);
+
+        return $root;
     }
 }
