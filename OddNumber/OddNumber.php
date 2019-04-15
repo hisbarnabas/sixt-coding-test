@@ -21,25 +21,26 @@ class OddNumber
      */
     public function find()
     {
-        $arr_counts = array_count_values($this->numbers);
-        $arr_values = array_flip($arr_counts);
-        
+        $map_num_freq = array_count_values($this->numbers);
+        $map_freq_cnt = array_flip($map_num_freq);
+
         // handle the exceptional case, first
-        if(count($arr_values) <= 1){
+        if(count($map_freq_cnt) <= 1){
             throw new Exception("No OddNumber has been found.");
         }
 
         // initialize the values before counting
-        foreach($arr_values as $cnt => $val){
-            $arr_values[$cnt] = 0;
+        foreach($map_freq_cnt as $cnt => $val){
+            $map_freq_cnt[$cnt] = 0;
         }
         // count to evaluate which one is odd among the elements
-        foreach($arr_counts as $idx => $cnt){
-            $arr_values[$cnt]++;
+        foreach($map_num_freq as $idx => $cnt){
+            $map_freq_cnt[$cnt]++;
         }
-        asort($arr_values);
-        $min_count = array_keys($arr_values)[0];
-        $item = array_search($min_count, $arr_counts);
+
+        asort($map_freq_cnt);
+        $min_freq = array_keys($map_freq_cnt)[0];
+        $item = array_search($min_freq, $map_num_freq);
 
         return $item;
     }
